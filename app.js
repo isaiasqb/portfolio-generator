@@ -41,13 +41,7 @@ return inquirer .prompt([
             type: 'input',
             name: 'about',
             message: 'Provide some information about yourself:',
-            when: ({ confirmAbout }) => {
-                if(confirmAbout){
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+            when: ({ confirmAbout }) => confirmAbout //this will keep comfirm about TRUE or false if the reply was negative
         },
     ])
 };
@@ -63,6 +57,11 @@ const promptProject = portfolioData => {
     ADD A NEW PROJECT
     =================
     `);
+
+        //if there;s no 'projects' array property, create one
+    if (!portfolioData.projects){
+        portfolioData.projects = [];
+    }
 
     return inquirer.prompt([
         {
@@ -144,9 +143,3 @@ promptUser()
         console.log('Portfolio Complete! Checkout index.html to see the output!');
         });
     });
-
-    const mockData = {
-        name: 'mockname',
-        github: 'mockgithub',
-        projects: []
-    }
